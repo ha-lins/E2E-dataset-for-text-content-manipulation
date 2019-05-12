@@ -36,4 +36,15 @@ Similar to NBA dataset, each example in the dataset consists of four elements, n
 |    #Data Types   |   8    |   8    |   8    |
 |   Avg Record Length   |   5.38       |    5.38    |   5.35    |
 			
-			
+# Dataset Creation Process
+
+This dataset is derived from [The E2E Challenge Dataset](https://github.com/tuetschek/e2e-dataset) which was used in the [ E2E NLG Challenge](http://www.macs.hw.ac.uk/InteractionLab/E2E/). It is for training end-to-end, data-driven natural language generation systems in the restaurant domain.
+
+In the E2E Generation dataset, the input is the semantics containing slots and their values, and the output is the corresponding natural language. To obtain our data:
+
++ We first process each record into tuples. Specifically, the above slot, value and the first value `name` constitute a data type,a value, and an associated entity respectively.  In this step, we make sure each value of the tuple become a single token (e.g., `Bibimbap_House, more_than_£30` ).
+
++ Meanwhile, the corresponding auxiliary sentence should do the same tokenization. For categorical values, like `no`, which cannot easily be aligned with a phrase, we simply replace them with the value ,like `not_family_friendly`, with the same meaning.So far, we have obtained all `(x, y_aux)` pairs.
+
++ To obtain the reference sentence `y'`, the coresponding retrieved record `x'` is designated to have the same number of tuples yet different data types. The number setting ,e.g.,(0, 1 or 2), of unpaired data types is flexible for the diverse pattern of reference sentences. 
+
